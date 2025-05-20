@@ -6,7 +6,10 @@ from reports import report_3_avg_weight_height as rpt3
 from reports import report_4_sport_alter_dist as rpt4
 from reports import report_5_top_country_by_medal as rpt5
 
-st.title("Olympic Games Data Dashboard - Asghari")
+st.set_page_config(
+    page_title="Olympic Analytics Dashboard - Asghari",
+    page_icon="🏅",
+)
 
 db = da.DataAccess()
 
