@@ -22,24 +22,24 @@ def report_sport_alter_dist(db:da.DataAccess):
         - 🥇 Gibt es Unterschiede im Alter zwischen Gold-, Silber- und Bronzegewinner:innen?
         - ⏳ Identifikation von Sportarten, in denen Erfahrung (höheres Alter) oder Jugend (niedrigeres Alter) besonders wichtig ist
 
-        📌 Über die Dropdown-Liste unten kannst du gezielt eine Sportart auswählen und die Altersverteilung analysieren.
+        📌 Nutze die Filter unten, um gezielt eine Sportart auszuwählen und die Altersverteilung zu analysieren
         """)
 
 
     sports=db.list_sports()
     
-    #Auswahl für eine Sportart
-    select_sport=st.selectbox("Eine Sportart auswählen", sports,16,key=7)
+    # Dropdown zur Auswahl einer einzelnen Sportart mit Standardwert (Index 5), z. B. Badminton
+    select_sport=st.selectbox("Eine Sportart auswählen", sports,5,key=7)
 
     data=db.list_sport_alter_dist(sport=select_sport)
 
-    # Gruppiertes Balkendiagramm
+    # Erstellt ein gruppiertes Balkendiagramm (Balken nebeneinander für jede Medaille)
     fig = px.bar(
         data,
         x="Year",
         y="avg_age",
         color="Medal",
-        barmode="group",  #Balken stehen nebeneinander
+        barmode="group",  
         title=f"Durchschnittsalter der Medaillengewinner in {select_sport} im Zeitverlauf",
         labels={
             "avg_age": "Durchschnittsalter",
@@ -53,6 +53,8 @@ def report_sport_alter_dist(db:da.DataAccess):
         },
     )
 
-    fig.update_layout(xaxis=dict(dtick=4))  # show all Olympic years
-    #Diagramm anzeigen
+    # show all Olympic years/dtick=4 zeigt alle vier Jahre (Olympiajahre) an.
+    fig.update_layout(xaxis=dict(dtick=4))  
+    
+    # Diagramm anzeigen und Containerbreite vollständig nutzen
     st.plotly_chart(fig, use_container_width=True)

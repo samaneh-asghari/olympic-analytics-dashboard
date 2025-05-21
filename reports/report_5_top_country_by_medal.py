@@ -23,24 +23,24 @@ def top_country_by_medal(db:da.DataAccess):
         - 🌐 Wie ist die globale Verteilung von Olympia-Erfolgen – sind sie regional konzentriert?
         - 📈 Entwicklungsmöglichkeiten: Gibt es Länder mit vielen Silber- und Bronzemedaillen, aber wenig Gold?
 
-        Verwende die Auswahlfelder unten, um verschiedene Kombinationen zu analysieren.
+        Verwende die Filter unten, um verschiedene Kombinationen zu analysieren.
         """)
 
     left,_,right = st.columns([0.3,0.4,0.3])
     with left:
-        #Nutzer kann den Medaillentyp wählen
+        #Nutzer kann den Medaillentyp auswählen
         select_medal=st.selectbox("Eine Medaille auswählen", ["Gold", "Silver", "Bronze"],key=9)
     with right:
-        #Nutzer kann festlegen,wie viele Top-Länder angezeigt werden
+        # Nutzer kann auswählen, wie viele Top-Länder angezeigt werden
         top=st.selectbox('Top',[5,10,15,20,25],1, key=89)
     
     data = db.list_top_country_by_medal(select_medal,top)
 
-    #erzeugt eine Weltkarte (Choroplethen-Karte)
+    # Erstellt eine interaktive Weltkarte (Choroplethenkarte)
     fig = px.choropleth(
         data,
         locations="Country",
-        locationmode="country names",  # This ensures country names are mapped correctly
+        locationmode="country names",  #Plotly verwendet hier echte Ländernamen
         color="Medals",
         hover_name="Country",
         hover_data=["Medals"],
@@ -48,15 +48,15 @@ def top_country_by_medal(db:da.DataAccess):
         title="Gesamtzahl der Medaillen nach Land",
       
     )
-    #Layout anpassen
+    # Layout der Karte anpassen, z.B. Hintergrundfarbe und Schriftfarbe
     fig.update_layout(
         geo=dict(
-            bgcolor='#051729',  # Make geo background transparent
+            bgcolor='#051729',  
         ),
         paper_bgcolor='#051729',
         plot_bgcolor='#051729',
         font=dict(color='white'),
     )
 
-    #Zeigt die Karte in voller Breite im Streamlit-Dashboard
+    # Die Karte wird im Streamlit-Dashboard in voller Containerbreite angezeigt
     st.plotly_chart(fig, use_container_width=True)

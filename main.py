@@ -11,25 +11,17 @@ st.set_page_config(
     page_icon="🏅",
 )
 
+# Initialisierung der Datenzugriffsschicht – wird einmal erstellt und an alle Reports übergeben
 db = da.DataAccess()
 
-#Aufruf der einzelnen Reports nacheinander
+# Aufruf der einzelnen Report-Funktionen in der gewünschten Reihenfolge
 
 rpt1.list_top_countries_by_total(db)
-
-st.divider()
-
+st.divider() # Trenner zwischen den Reports im Streamlit-Layout
 rpt2.gender_teilnehmen_medal(db)
-
 st.divider()
-
 rpt3.report_avg_height_weight(db)
-
 st.divider()
-
 rpt4.report_sport_alter_dist(db)
-
 st.divider()
-
 rpt5.top_country_by_medal(db)
-

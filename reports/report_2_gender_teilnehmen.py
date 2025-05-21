@@ -21,19 +21,19 @@ def gender_teilnehmen_medal(db:da.DataAccess):
         - 👥 Wie viele **Athlet:innen eines Geschlechts** an den Spielen teilgenommen haben.
         - 📈 Gibt es eine **Korrelation zwischen Teilnehmerzahl und Medaillenerfolg**?
         - ⚖️ Haben sich **geschlechtsspezifische Unterschiede** im Medaillengewinn über die Jahre verringert oder verstärkt?
-        - 🧭 In welchen Jahren war die Teilnahme besonders hoch oder niedrig .
+        - 🧭 In welchen Jahren war die Teilnahme besonders hoch oder niedrig.
         
 
-         Nutze die Filter unten , um gezielt Trends, Entwicklungen und Unterschiede zwischen Männern und Frauen im olympischen Wettbewerb zu analysieren!
+         ➡️ Nutze die Filter unten, um gezielt Trends, Entwicklungen und Unterschiede zwischen Männern und Frauen im olympischen Wettbewerb zu analysieren!
         """)
     
-    #Erstellt zwei Spalten für Filter. Die mittlere Spalte (_) bleibt leer als Abstandhalter.
+    ## Erstellt drei Spalten für Filter; die mittlere Spalte (_) dient als Abstandhalter.
     rangecol,_,gendercol=st.columns([0.6,0.2, 0.2])
     with rangecol:
-        #Ein Jahrbereichs-Slider, Standard: 1960–2016.
+        #Slider zur Auswahl des Jahresbereichs (Standard: 1960–2016).
         start_year, end_year = st.slider("Jahresbereich auswählen", 1904, 2016, (1960, 2016), step=4, key='part')
     with gendercol:
-        #Auswahlbox für Geschlecht.
+        # Auswahl des Geschlechts (Mann oder Frau).
         gender=st.selectbox('Geschlecht',['Mann','Frau'],1,)
         if gender == 'Mann':
             gender = 'M'
@@ -45,7 +45,7 @@ def gender_teilnehmen_medal(db:da.DataAccess):
 
     fig = go.Figure()
 
-    # Stacked bars for medals
+    # Gestapelte Balken für Medaillen
     fig.add_trace(go.Bar(
         x=df["Year"],
         y=df["num_gold"],
@@ -65,8 +65,7 @@ def gender_teilnehmen_medal(db:da.DataAccess):
         marker_color="#cd7f32"  # bronze color
     ))
 
-    # Fügt eine Linie
-    #yaxis="y2": Zweite y-Achse (rechte Seite), um Teilnehmer separat zu zeigen.
+    #Fügt eine Linie hinzu, die die Anzahl der Athleten zeigt (zweite y-Achse rechts).
     fig.add_trace(go.Scatter(
         x=df["Year"],
         y=df["num_athletes"],
@@ -76,7 +75,7 @@ def gender_teilnehmen_medal(db:da.DataAccess):
         line=dict(color="white", width=3)
     ))
 
-    # Layout config
+    #Layout-Konfiguration
     fig.update_layout(
         title=f"Olympische Teilnahme & Medaillen ({start_year}–{end_year}) – {'Frau' if gender == 'F' else 'Mann'} Athleten",
         xaxis_title="Jahr",

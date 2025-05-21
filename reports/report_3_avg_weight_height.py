@@ -30,7 +30,7 @@ def report_avg_height_weight(db:da.DataAccess):
         Nutze die Filter unten, um gezielt Sportarten und Geschlechter auszuwählen und Unterschiede besser zu analysieren.
         """)
 
-    #Holt alle Sportarten aus der Datenbank.    
+    #Ruft alle verfügbaren Sportarten aus der Datenbank ab.   
     all_sports = db.list_sports()
     #Fügt "Alle" als Auswahloption hinzu.
     all_sports.insert(0,"Alle")
@@ -56,7 +56,7 @@ def report_avg_height_weight(db:da.DataAccess):
     #Datenabruf
     result = db.list_avg_weight_height(selected_sports,selected_sex)
     
-    #Erstellt ein interaktives Streudiagramm
+    #erstellt ein interaktives Blasendiagramm (Bubble Chart).
     fig = px.scatter(
         result,
         x="avg_weight",
