@@ -1,2 +1,4 @@
 # 🏅 Olympic Games Data Dashboard
 An interactive Streamlit dashboard for visualizing Olympic Games data. Explore trends in athlete performance, medal distribution by gender and country, age evolution, and physical attributes — all based on real Olympic data. Built with Pandas, Plotly, and Streamlit.
+
+[dashboard](https://olympic-analytics-dashboard-asghari.streamlit.app/)
